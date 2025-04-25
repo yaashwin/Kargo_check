@@ -24,11 +24,13 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Generate version tag
-      id: vars
-      run: echo "TAG=$(date +'%Y%m%d%H%M')-${GITHUB_SHA::7}" >> $GITHUB_ENV
+    - name: Read version from file
+      id: version
+      run: |
+        VERSION=$(cat VERSION)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t $IMAGE_NAME:${{ env.TAG }} .
-        docker push $IMAGE_NAME:${{ env.TAG }}
+        docker build -t $IMAGE_NAME:${{ env.VERSION }} .
+        docker push $IMAGE_NAME:${{ env.VERSION }}
