@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kargo
-        image: yaashwin06/kargo:v1.0.1 # This image can be dynamically updated
+        image: yaashwin06/kargo:v1.0.1 
         ports:
         - containerPort: 8080
         env:
