@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kargo-deployment
+  labels:
+    app: kargo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kargo
+  template:
+    metadata:
+      labels:
+        app: kargo
+    spec:
+      containers:
+      - name: kargo
+        image: yaashwin06/kargo:v1.0.1 # This image can be dynamically updated
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ENVIRONMENT
+          value: "production" # Use dynamic values based on your environment if needed
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
